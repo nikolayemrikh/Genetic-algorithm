@@ -21,6 +21,7 @@ size_t * get_random_indexes(size_t n, size_t m2);
 bool compare(const Indval & left, const Indval & right);
 double get_y(int x);
 
+static size_t mode = -1;
 static const int staticlog = 6;
 
 struct Indval {
@@ -29,8 +30,23 @@ struct Indval {
     int val_;
     size_t index_;
 };
-
+// максимальное значение функции 134 781
+// минимальное значение функции -22506.79
 int main() {
+    // 1 - max
+    // 2 - min
+    std::cout << "Выберите режим:\n" << "Максимум - 1, минимум - 2" << std::endl;
+    std::cin >> mode;
+    switch (mode) {
+        case 1:
+            mode = 1;
+            break;
+        case 2:
+            mode = 2;
+            break;
+        default:
+            return 0;
+    }
     
     const size_t n = 8, m = n / 2, mut = m == 1 ? 1 : m;
     const int first_elem = -10;
@@ -47,7 +63,7 @@ int main() {
 //    }
     
     size_t counter = 0;
-    while (counter != 100) {
+    while (counter != 1000) {
         int * genotype_with_parents = new int[(n + m * 2)];
         std::copy(genotype, genotype + n, genotype_with_parents);
         counter++;
@@ -188,5 +204,14 @@ int * populate_genotype(size_t size, int from, int to) {
 }
 
 bool compare(const Indval & left, const Indval & right) {
-    return left.val_ > right.val_;
+    bool comp = false;
+    switch (mode) {
+        case 1:
+            comp = left.val_ > right.val_;
+            break;
+        case 2:
+            comp = left.val_ < right.val_;
+            break;
+    }
+    return comp;
 }
