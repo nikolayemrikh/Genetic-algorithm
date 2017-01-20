@@ -84,29 +84,22 @@ int main() {
         }
         reduce(genotype_with_parents, n + m, genotype, n);
         
-//        std::cout << "start" << std::endl;
-//        for (size_t i = 0; i != n + m * 2; ++i) {
-//            std::cout << get_y(genotype_with_parents[i]) << " " << genotype_with_parents[i] << std::endl;
-//        }
-//        std::cout << "mid" << std::endl;
-//        for (size_t i = 0; i != n; ++i) {
-//            std::cout << get_y(genotype[i]) << " " << genotype[i] << std::endl;
-//        }
-//        std::cout << "end" << std::endl;
-        
-        double avg = 0;
-        for (size_t i = 0; i != n; ++i) {
-            avg += get_y(genotype[i]);
-//            std::cout << get_y(genotype[i]) << std::endl;
+        double max_or_min = genotype[0];
+        for (size_t i = 1; i != n; ++i) {
+            double val = get_y(genotype[i]);
+            switch (mode) {
+                case 1:
+                    if (val > max_or_min)
+                        max_or_min = val;
+                    break;
+                case 2:
+                    if (val < max_or_min)
+                        max_or_min = val;
+                    break;
+            }
         }
-        avg /= n;
-        std::cout << avg << std::endl;
+        std::cout << max_or_min << std::endl;
     }
-    
-//    for (size_t i = 0; i != n; ++i) {
-//        std::cout << genotype[i] << std::endl;
-//    }
-
     
     return 0;
 }
